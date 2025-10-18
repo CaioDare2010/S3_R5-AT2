@@ -2,8 +2,8 @@ const {clienteModel} = require("../models/clienteModel");
 
 const clienteController ={
     /*---------------------------
-    LISTAR TODOS OS PRODUTOS
-    GET /produtos
+    LISTAR TODOS OS CLIENTES
+    GET /cliente
     -----------------------------
     */
     listarClientes: async (req, res)=>{
@@ -20,26 +20,24 @@ const clienteController ={
     },
 
     /*---------------------------
-    CRIAR UM NOVO PRODUTO
-    POST /produtos
+    CADASTRAR UM NOVO CLIENTE
+    POST /cliente
     {
         "nomeCliente": "nome" ,
-        "idCliente": 00000 ,
-        "cpfCliente": 000.000.000.00
+        "email": "nome@gmail.com"
+        "telefone": +00 00 00000-0000
     }
     -----------------------------
     */
    criarCliente: async (req, res)=>{
     try{
-       const {nomeCliente, idCliente, cpfCliente} = req.body;
+       const {nomeCliente, email, telefone} = req.body;
 
-       if (nomeCliente == undefined || idCliente == undefined || isNaN(idCliente) || cpfCliente == undefined || isNaN(cpfCliente)) {
+       if (nomeCliente == undefined || email == undefined || telefone == undefined || isNaN(telefone)) {
             return res.status(400).json({erro: 'Campos Obrigatórios não preenchidos!'});
        };
 
-       if (cpfCliente = await cpfCliente.buscarTodos()) return res.status(409).json({erro:'CPF já existente'});
-
-       await clienteModel.inserirCliente(nomeCliente, idCliente, cpfCliente);
+       await clienteModel.inserirCliente(nomeCliente, email, telefone);
 
        res.status(201).status({message: 'Cliente cadastrado com sucesso!'});
 

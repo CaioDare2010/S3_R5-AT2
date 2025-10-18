@@ -19,20 +19,20 @@ const clienteModel = {
         }
     },
 
-    inserirCliente: async (nomeCliente, idCliente, cpfCliente)=>{
+    inserirCliente: async (nomeCliente, email, telefone)=>{
         try{
             
             const pool = await getConnection();
 
-            let querySQL = 'INSERT INTO Cliente (nomeCliente, idCliente, cpfCliente) VALUES (@nomeCliente, @idCliente, @cpfCliente)';
+            let querySQL = 'INSERT INTO Cliente (nomeCliente, email , telefone) VALUES (@nomeCliente, @email, @telefone)';
              
             await pool.request()
                 .input('nomeCliente', sql.VarChar(100),
                 nomeCliente)
-                .input('idCliente', sql.Decimal(10,2), 
-                idCliente)
-                 .input('cpfCliente', sql.Decimal(10,2), 
-                cpfCliente)
+                .input('email', sql.VarChar(100), 
+                email)
+                 .input('telefone', sql.Decimal(10,2), 
+                telefone)
                 .query(querySQL);
 
         }catch (error) {
